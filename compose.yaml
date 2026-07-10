@@ -1,0 +1,22 @@
+services:
+  grok-reverse-proxy:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      GROK_LISTEN_ADDR: 0.0.0.0:8080
+      GROK_AUTH_FILES: /run/secrets/grok-auth.json
+      GROK_STATE_FILE: /var/lib/grok-proxy/accounts.json
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - ${HOME}/.grok/auth.json:/run/secrets/grok-auth.json:ro
+      - grok-state:/var/lib/grok-proxy
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+
+volumes:
+  grok-state:

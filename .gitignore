@@ -1,0 +1,21 @@
+# Secrets and runtime state
+.env
+.env.*
+!.env.example
+data/
+.grok/
+auth.json
+*auth*.json
+*account*.json
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Build and editor output
+bin/
+dist/
+coverage.out
+.DS_Store
+.idea/
+.vscode/

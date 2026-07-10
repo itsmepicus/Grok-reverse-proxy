@@ -1,0 +1,13 @@
+.git
+.github
+.env
+.env.*
+data
+.grok
+auth.json
+*auth*.json
+*account*.json
+*.pem
+*.key
+README.md
+SECURITY.md
