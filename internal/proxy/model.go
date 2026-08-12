@@ -2,7 +2,7 @@ package proxy
 
 import "strings"
 
-var publicModels = []string{"grok-4.5", "composer-2.5-fast"}
+var publicModels = []string{"grok-4.6", "grok-4.5", "composer-2.5-fast"}
 
 func canonicalModel(model string) (string, bool) {
 	key := strings.ToLower(strings.TrimSpace(model))
@@ -17,7 +17,9 @@ func canonicalModel(model string) (string, bool) {
 		key = next
 	}
 	switch key {
-	case "grok-4.5", "grok-build":
+	case "grok-4.6", "grok-build":
+		return "grok-4.6", true
+	case "grok-4.5":
 		return "grok-4.5", true
 	case "composer-2.5", "grok-composer-2.5", "composer-2.5-fast", "grok-composer-2.5-fast":
 		return "grok-composer-2.5-fast", true

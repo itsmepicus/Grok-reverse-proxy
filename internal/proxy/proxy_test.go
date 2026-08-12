@@ -26,11 +26,11 @@ func TestPrepareChatRequest(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if !prepared.stream || prepared.model != "grok-4.5" || prepared.publicModel != "grok-build" {
+	if !prepared.stream || prepared.model != "grok-4.6" || prepared.publicModel != "grok-build" {
 		t.Fatalf("unexpected request metadata: %#v", prepared)
 	}
 	text := string(prepared.body)
-	for _, want := range []string{`"instructions":"Be concise"`, `"model":"grok-4.5"`, `"store":false`, `"effort":"high"`, `"name":"lookup"`} {
+	for _, want := range []string{`"instructions":"Be concise"`, `"model":"grok-4.6"`, `"store":false`, `"effort":"xhigh"`, `"name":"lookup"`} {
 		if !strings.Contains(text, want) {
 			t.Fatalf("upstream body missing %s: %s", want, text)
 		}
@@ -87,7 +87,7 @@ func TestHandlerAuthenticatesAndDoesNotForwardClientSecret(t *testing.T) {
 		}
 		var body map[string]any
 		_ = json.NewDecoder(r.Body).Decode(&body)
-		if body["model"] != "grok-4.5" || body["store"] != false {
+		if body["model"] != "grok-4.6" || body["store"] != false {
 			t.Errorf("unexpected upstream body: %#v", body)
 		}
 		w.Header().Set("Content-Type", "application/json")

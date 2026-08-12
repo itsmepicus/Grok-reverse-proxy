@@ -275,8 +275,8 @@ func formatReasoning(out, source map[string]any, model string) {
 	for _, key := range []string{"reasoning", "reasoning_effort", "reasoningEffort", "model_reasoning_effort", "modelReasoningEffort", "effort", "thinking", "output_config", "outputConfig"} {
 		delete(out, key)
 	}
-	if model == "grok-4.5" && effort != "" {
-		out["reasoning"] = map[string]any{"effort": normalizeEffort(effort)}
+	if (model == "grok-4.6" || model == "grok-4.5") && effort != "" {
+		out["reasoning"] = map[string]any{"effort": normalizeEffort(effort, model)}
 	}
 }
 
@@ -307,7 +307,21 @@ func reasoningEffort(source map[string]any) string {
 	return ""
 }
 
-func normalizeEffort(raw string) string {
+func normalizeEffort(raw, model string) string {
+	if model == "grok-4.6" {
+		switch strings.ToLower(strings.TrimSpace(raw)) {
+		case "none", "off", "disabled", "false", "0", "minimal", "min", "low", "lite":
+			return "low"
+		case "medium", "med":
+			return "medium"
+		case "high", "normal", "standard":
+			return "high"
+		case "default", "auto", "xhigh", "max", "maximum", "ultra", "highest":
+			return "xhigh"
+		default:
+			return "medium"
+		}
+	}
 	switch strings.ToLower(strings.TrimSpace(raw)) {
 	case "none", "off", "disabled", "false", "0", "minimal", "min", "low", "lite":
 		return "low"

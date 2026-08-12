@@ -27,7 +27,7 @@ Runtime credentials stay on the machine where the proxy runs.
 - `POST /v1/responses` — OpenAI Responses passthrough.
 - `POST /v1/messages` — Anthropic Messages compatibility, including streaming.
 - `GET /v1/models` and unauthenticated `GET /healthz`.
-- Grok model aliases (`grok-build`, `grok-4.5`, Composer aliases).
+- Grok model aliases (`grok-build` → `grok-4.6`, pinned `grok-4.5`, Composer aliases).
 - Tool calls, reasoning effort normalization, usage conversion, and images.
 - Automatic OAuth refresh with atomic owner-only runtime persistence.
 - Multiple account files with least-loaded selection, cooldowns, and retries.
@@ -62,7 +62,7 @@ curl http://127.0.0.1:8080/v1/chat/completions \
   -H "Authorization: Bearer $GROK_PROXY_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "grok-4.5",
+    "model": "grok-4.6",
     "messages": [{"role": "user", "content": "Reply with OK"}]
   }'
 ```
@@ -174,7 +174,7 @@ OpenAI- и Anthropic-совместимые эндпоинты, использу
 - `POST /v1/responses` — passthrough для OpenAI Responses.
 - `POST /v1/messages` — совместимость с Anthropic Messages и streaming.
 - `GET /v1/models` и не требующий авторизации `GET /healthz`.
-- Алиасы моделей Grok: `grok-build`, `grok-4.5` и варианты Composer.
+- Алиасы моделей Grok: `grok-build` → `grok-4.6`, закреплённый `grok-4.5` и варианты Composer.
 - Tool calls, нормализация reasoning effort, преобразование usage и изображения.
 - Автоматическое обновление OAuth с атомарным сохранением приватного state-файла.
 - Пул нескольких аккаунтов с балансировкой, cooldown и повторными попытками.
@@ -209,7 +209,7 @@ curl http://127.0.0.1:8080/v1/chat/completions \
   -H "Authorization: Bearer $GROK_PROXY_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "grok-4.5",
+    "model": "grok-4.6",
     "messages": [{"role": "user", "content": "Ответь только OK"}]
   }'
 ```
